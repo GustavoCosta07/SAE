@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+}
+
+.conteudo-head {
+    border-bottom: 3px solid #006A70;
+}
+
+.logo {
+    margin-left: 24px;
+    margin-top: 22.64px;
+    margin-bottom: 12px;
+    /* border: red solid; */
+}
+
+main {
+    display: flex;
+    /* width: auto; */
+    /* border: red solid; */
+}
+
+
+.barra-lateral {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    background-color: #006A70;
+    min-width: 72px;
+    min-height: 100vh;
+    height: auto;
+    /* border: red solid; */
+}
+
+.botaoSideBar {
+    display: flex;
+    margin-top: 10px;
+    color: #fff;
+    /* border: red solid; */
+}
+
+#teste {
+    margin-top: auto;
+    margin-bottom: 10px;
+    /* border: red solid; */
+}
+
+.conteudo-meio:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    padding-left: 48px;
+    padding-bottom: 10px;
+    /* border: red solid; */
+}
+
+.papelzinho {
+    padding-top: 20px;
+}
+
+.titulo {
+    display: flex;
+    gap: 12px;
+    color: #006A70;
+    /* border: red solid; */
+}
+
+.subtitulo {
+    color: #686770;
+    /* border: red solid; */
+}
+
+.descricao {
+    color: #686770;
+    /* border: red solid; */
+}
+
+.bio {
+    border-left: #686770 1px solid;
+    border-radius: 2px;
+    padding: 5px;
+    width: 1000px;
+}
+
+.corpo {
+    display: flex;
+    flex-direction: column;
+    min-height: 30vh;
+    /* border: red solid; */
+
+}
+
+.atendimento {
+    margin-top: 20px;
+    color: #006A70;
+}
+
+.entrada {
+    resize: none;
+    overflow: hidden;
+    border: #686770 1px solid;
+    border-radius: 5px;
+    height: 40px;
+    transition: height 0.2s;
+}
+
+.entrada:focus {
+    height: 100px;
+    /* Ajuste a altura desejada */
+}
+
+.botao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 24px;
+    width: 84px;
+    height: 48px;
+    margin-top: 10px;
+    margin-left: 949px;
+    color: #fff;
+    background: #006A70;
+    border-radius: 4px;
+    border: #fff solid 1px;
+    /* border: red solid; */
+
+}
+
+.botao:hover {
+    background: #065155;
+    margin-left: 0px;
+    border: #686770 solid 1px;
+}

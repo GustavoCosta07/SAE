@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="wclassth=device-width, initial-scale=1.0" />
+  <title>SAE-login</title>
+  <link rel="stylesheet" href="../../public/global.css">
+  <link rel="stylesheet" href="../../public/Psicologia/Login/login.css">
+  <link rel="shortcut icon" href="../../public/Psicologia/Fotos/svg/icon.ico" type="image/x-icon" />
+  <script src="../public/tst.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="cabecalho-img">
+      <img src="../../public/Psicologia/Fotos/svg/header.svg" alt="img-ondas" />
+    </div>
+  </header>
+  <main>
+    <div class="box-sae">
+      <div class="logo"><img src="../../public/Psicologia/Fotos/svg/logo.svg" alt="img-logo" /></div>
+      <div class="texto-servico">
+        <p>Serviço de Atendimento Especializado</p>
+      </div>
+      <div class="texto-registo">
+        <p>
+          Entre utilizando seu número de matrícula <br />
+          e senha.
+        </p>
+      </div>
+      <form action="/psicologia/login" method="post">
+
+
+        <div class="inputBox">
+          <input type="text" name="matricula" />
+          <span>Matrícula</span>
+        </div>
+        <div class="inputBox">
+          <input type="text" name="senha" />
+          <span>Senha</span>
+        </div>
+       <button class="botao" type="submit">Entrar</button>
+      </form>
+      <p class="register">
+        Se não tiver o cadastro
+        <a href="/psicologia/pageRegister"> registre-se</a>
+      </p>
+    </div>
+  </main>
+</body>
+
+</html>

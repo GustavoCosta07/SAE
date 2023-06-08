@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>atendimento</title>
+  <link rel="stylesheet" href="/css/detalhamento.css"/>
+  <link rel="shortcut icon" href="/css/svg/icon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+    <div class="conteudo-head">
+      <div class="logo"><img src="/css/svg/logo.svg" alt="img-logo" /></div>
+    </div>
+  </header>
+  <main>
+    <aside class="barra-lateral">
+      <img src="/css/svg/setaBarraLatera.svg" alt="setalareal" class="botaoSideBar" />
+      <img src="/css/svg/lupaBranca.svg" alt="pesquisalateral" class="botaoSideBar" />
+      <img src="/css/svg/papel.svg" alt="papel" class="botaoSideBar" />
+      <img src="/css/svg/tresRiscosBranco.svg" alt="tresRiscos" class="botaoSideBar" />
+    </aside>
+    <div class="conteudo-meio">
+      <div class="titulo">
+        <img src="/css/svg/papelAzul.svg" alt="" class="papelzinho" />
+        <h1 class="atendimento"><b>Atendimento: Pedro Alves</b></h1>
+      </div>
+      <div class="subtitulo">Visualize o andamento desse atendimento.</div>
+      <div class="descricao">
+        <div class="tipo">
+          <p><b>Tipo de Atendimento: </b>Processo Jurídico</p>
+        </div>
+        <div class="status">
+          <p><b>Status: </b>Em Andamento</p>
+        </div>
+      </div>
+
+      <div class="corpo">
+        <div class="anexo">
+          <p>Documentos Anexados</p>
+        </div>
+        <div class="dropdown">
+          <select id="form_modelo">
+            <option selected value="Todos" class="seletor">Ata_2023</option>
+            <option value="hatch" class="seletor">teste</option>
+            <option value="hatch" class="seletor">teste1</option>
+          </select>
+          <select id="form_modelo">
+            <option selected value="Todos" class="seletor">Atualização_Processo</option>
+            <option value="hatch" class="seletor">Hatch</option>
+            <option value="hatch" class="seletor">Hatch</option>
+          </select> <select id="form_modelo">
+            <option selected value="Todos" class="seletor">Novo_Edital_2023</option>
+            <option value="hatch" class="seletor">Hatch</option>
+            <option value="hatch" class="seletor">Hatch</option>
+          </select>
+        </div>
+        <div class="consulta-scheduling">
+          <div class="titulo-consulta">
+            <h2>Agendar Consulta</h2>
+          </div>
+
+          <div class="select-dia">
+            <label for="dia">Dia:</label>
+            <select id="dia">
+              <option value="Segunda-feira">Segunda-feira</option>
+              <option value="Quarta-feira">Quarta-feira</option>
+              <option value="Sexta-feira">Sexta-feira</option>
+            </select>
+          </div>
+
+          <div class="select-hora">
+            <label for="hora">Hora:</label>
+            <select id="hora">
+              <option value="9:00">9:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+   
+            </select>
+          </div>
+
+          <div class="botao-agendar">
+            <button id="agendar-button">Agendar</button>
+          </div>
+
+          <div class="detalhes-consulta">
+            <h3>Detalhes da Consulta</h3>
+            <p id="detalhes"></p>
+          </div>
+        </div>
+
+        <script>
+          const agendarButton = document.getElementById("agendar-button");
+
+          agendarButton.addEventListener("click", function () {
+            const dia = document.getElementById("dia").value;
+            const hora = document.getElementById("hora").value;
+
+            const consulta = {
+              dia: dia,
+              hora: hora
+            };
+
+            localStorage.setItem('consulta', JSON.stringify(consulta));
+
+            document.getElementById("detalhes").innerHTML = "Consulta agendada com sucesso para " + dia + " às " + hora;
+          });
+        </script>
+      </div>
+  </main>
+  <script src="/js/dropdown.js"></script>
+</body>
+
+</html>

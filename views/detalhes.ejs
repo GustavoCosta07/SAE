@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Detalhes da Consulta</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Detalhes da consulta marcada</h1>
+  <p>Psicólogo: <%= psicologo.nome %></p>
+  <p>Data: <%= consulta.data %></p>
+  <p>Horário: <%= consulta.horario %></p>
+  <p>Usuário: <%= consulta.usuario %></p>
+
+  <form action="/cancelar-consulta/<%= consultas.indexOf(consulta) %>" method="post">
+    <button type="submit">Cancelar consulta</button>
+  </form>
+
+  <a href="/">Voltar</a>
+</body>
+</html>
