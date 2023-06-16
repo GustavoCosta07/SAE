@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SAE-registro</title>
     <link rel="stylesheet" href="../../public/global.css" />
-    <link rel="stylesheet" href="../../public/Psicologia/Registro/register.css" />
+    <!-- <link rel="stylesheet" href="../../public/Psicologia/Registro/register.css" /> -->
     <link rel="shortcut icon" href="../../public/Psicologia/Fotos/svg/icon.ico" type="image/x-icon" />
+    <script src="../../public/Psicologia/Registro/registro.js"></script>
   </head>
   <body>
     <header>
@@ -15,7 +16,7 @@
         <img src="../../public/Psicologia/Fotos/svg/header.svg" alt="img-ondas" />
       </div>
       <main>
-        <form action="/psicologia/register" method="post">
+        <!-- <form> -->
 
           <div class="box-sae">
             <div class="logo"><img src="../../public/Psicologia/Fotos/svg/logo.svg" alt="img-logo" /></div>
@@ -39,16 +40,7 @@
               <input type="text" name="nome" />
               <span>Nome Completo</span>
             </div>
-  
-            <div class="inputBox">
-              <input type="text" name="descricao" />
-              <span>Descrição</span>
-            </div>
-  
-            <div class="inputBox">
-              <input type="text" name="topicos" />
-              <span>Especialidade</span>
-            </div>
+
   
             <div class="inputBox">
               <input type="text" name="telefone" />
@@ -63,14 +55,14 @@
               <input type="text" name="confirmacaoDeSenha" />
               <span>Confirme a senha</span>
               <!-- <div class="botao">Cadastrar</div> -->
-              <button type="submit" class="botao">Cadastrar</button>
+              <button type="submit" class="botao" onclick="registrar()">Cadastrar</button>
             </div>
             <p class="register">
               Retornar para
               <a href="/psicologia">Login</a>
             </p>
           </div>
-        </form>
+        <!-- </form> -->
       </main>
     </header>
   </body>

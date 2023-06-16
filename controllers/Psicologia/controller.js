@@ -10,7 +10,7 @@ module.exports = {
 
         // const [psicologos, fields] = await db.query('SELECT * FROM USUARIOS WHERE TIPO = ? LIMIT 6', [2]);
 
-        const psicologos = await db.query('SELECT * FROM USUARIOS LIMIT 6');
+        const psicologos = await db.query('SELECT * FROM PROFISSIONAIS LIMIT 6');
 
         console.log(psicologos)
 
@@ -28,12 +28,37 @@ module.exports = {
     },
 
     async detail(request) {
-
-        const {codigo} = request
-        const psicologo = await db.query(`SELECT * FROM USUARIOS where ID = ${codigo}`);
-
-        return renderView('Psicologia/detail', {psicologo: psicologo[0]});
-    },
+        const { codigo, genero, page, pageSize } = request;
+    
+        let query = `SELECT * FROM PROFISSIONAIS WHERE ID = ${codigo}`;
+        let totalResults = 0;
+    
+        if (genero) {
+            query += ` AND genero = '${genero}'`;
+        }
+    
+        // Obter o número total de resultados sem a paginação
+        const totalResultsQuery = `SELECT COUNT(*) AS total FROM (${query}) AS subquery`;
+        const totalResultsResult = await db.query(totalResultsQuery);
+        totalResults = totalResultsResult[0].total;
+    
+        // Aplicar a paginação
+        if (page && pageSize) {
+            const offset = (page - 1) * pageSize;
+            query += ` LIMIT ${pageSize} OFFSET ${offset}`;
+        }
+    
+        const psicologo = await db.query(query);
+    
+        return renderView('Psicologia/detail', {
+            psicologo: psicologo[0],
+            totalResults,
+            currentPage: page,
+            pageSize
+        });
+    }
+    
+    ,
 
     async register(request) {
 
@@ -45,6 +70,7 @@ module.exports = {
     },
     
     async registration(request) {
+        console.log(request)
 
         const errors = validationResult(request);
 
@@ -52,7 +78,7 @@ module.exports = {
             return renderJson(400, { errors: errors.array() });
         }
 
-        const { email, matricula, senha, nome, descricao, topicos, telefone } = request
+        const { email, matricula, senha, nomeCompleto, descricao, topicos, telefone } = request
 
         let hashedPassword = await bcrypt.hash(senha, 10);
 
@@ -60,11 +86,11 @@ module.exports = {
             EMAIL: email,
             MATRICULA: matricula,
             SENHA: hashedPassword,
-            NOME: nome,
-            DESCRICAO: descricao,
-            TOPICOS: topicos,
+            NOME: nomeCompleto,
+            // DESCRICAO: descricao,
+            // TOPICOS: topicos,
             TELEFONE: telefone,
-            TIPO: 2,  // Adicionar tipo de usuário 'PSICOLOGO'
+            // TIPO: 2
         };
 
         try {
@@ -79,7 +105,7 @@ module.exports = {
 
             await transporter.sendMail(mailOptions);
 
-            return renderJson('Usuário registrado, por favor confirme seu email');
+            return renderJson('Quase lá, Confirme seu registro no seu e-mail Puc');
         } catch (error) {
             console.log(error);
             return renderJson(500, 'Erro do servidor');
@@ -97,7 +123,7 @@ module.exports = {
             if (results.affectedRows === 0) {
                 return renderJson(404, 'Usuário não encontrado');
             } else {
-                return renderJson('E-mail confirmado com sucesso!');
+                return redirect('/psicologia');
             }
         } catch (error) {
             console.log(error);

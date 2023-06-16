@@ -6,8 +6,10 @@ services:
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: exemplo
+      MYSQL_ROOT_PASSWORD: senha
       MYSQL_DATABASE: sae
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
     volumes:
       - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
     ports:

@@ -1,11 +1,4 @@
-CREATE TABLE IF NOT EXISTS `TIPO_USUARIO` (
-    `ID` INT AUTO_INCREMENT PRIMARY KEY,
-    `DESCRICAO` VARCHAR(255) NOT NULL
-);
-
-INSERT INTO `TIPO_USUARIO` (`DESCRICAO`)
-VALUES ('COMUM'), ('PSICOLOGO'), ('ADVOGADO');
-
+-- Criação da tabela USUARIOS
 CREATE TABLE IF NOT EXISTS `USUARIOS` (
     `ID` INT AUTO_INCREMENT PRIMARY KEY,
     `EMAIL` VARCHAR(255) NOT NULL UNIQUE,
@@ -15,43 +8,55 @@ CREATE TABLE IF NOT EXISTS `USUARIOS` (
     `DESCRICAO` VARCHAR(255),
     `TOPICOS` VARCHAR(255),
     `TELEFONE` VARCHAR(20),
-    `TIPO` INT,
-    `CONFIRMACAO_REGISTRO` BOOLEAN DEFAULT 0,
-    FOREIGN KEY (`TIPO`) REFERENCES `TIPO_USUARIO`(`ID`)
+    `CONFIRMACAO_REGISTRO` BOOLEAN DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS `DISPONIBILIDADE` (
-    `ID` INT AUTO_INCREMENT PRIMARY KEY,
-    `ID_USUARIO` INT,
-    `DATA_HORA_INICIO` DATETIME,
-    `DATA_HORA_FIM` DATETIME,
-    `ESTADO` ENUM('disponível', 'reservado', 'indisponível'),
-    FOREIGN KEY (`ID_USUARIO`) REFERENCES `USUARIOS`(`ID`)
+-- Criação da tabela PROFISSIONAIS
+CREATE TABLE PROFISSIONAIS (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    NOME VARCHAR(100),
+    EMAIL VARCHAR(100),
+    TELEFONE VARCHAR(20),
+    GENERO ENUM('M', 'F'),
+    ESPECIALIDADE VARCHAR(100),
+    SOBRE_MIM TEXT
 );
 
-CREATE TABLE IF NOT EXISTS `CONSULTAS` (
-    `ID` INT AUTO_INCREMENT PRIMARY KEY,
-    `ID_USUARIO` INT,
-    `ID_PROFISSIONAL` INT,
-    `DATA_HORA` DATETIME,
-    FOREIGN KEY (`ID_USUARIO`) REFERENCES `USUARIOS`(`ID`),
-    FOREIGN KEY (`ID_PROFISSIONAL`) REFERENCES `USUARIOS`(`ID`)
+-- Criação da tabela HORARIOS
+CREATE TABLE HORARIOS (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    ID_PROFISSIONAL INT,
+    DATA_HORA DATETIME,
+    DISPONIVEL ENUM('S', 'N'),
+    FOREIGN KEY (ID_PROFISSIONAL) REFERENCES PROFISSIONAIS(ID)
 );
 
-INSERT INTO `USUARIOS` (`EMAIL`, `MATRICULA`, `SENHA`, `NOME`, `DESCRICAO`, `TOPICOS`, `TELEFONE`, `TIPO`)
+-- Criação da tabela CONSULTAS
+CREATE TABLE CONSULTAS (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    MATRICULA_USUARIO VARCHAR(255),
+    ID_PROFISSIONAL INT,
+    ID_HORARIO INT,
+    DATA_HORA DATETIME,
+    FOREIGN KEY (MATRICULA_USUARIO) REFERENCES USUARIOS(MATRICULA),
+    FOREIGN KEY (ID_PROFISSIONAL) REFERENCES PROFISSIONAIS(ID),
+    FOREIGN KEY (ID_HORARIO) REFERENCES HORARIOS(ID)
+);
+
+INSERT INTO PROFISSIONAIS (NOME, EMAIL, TELEFONE, GENERO, ESPECIALIDADE, SOBRE_MIM)
 VALUES
-    ('psicologo1@facul.com', 'matriculaps1', 'password1', 'Carlos Silva', 'Psicologia, 3º período', 'Psicanálise e Saúde Mental', '(31)993344556', 2),
-    ('psicologo2@facul.com', 'matriculaps2', 'password2', 'Fernanda Souza', 'Psicologia, 4º período', 'Psicologia cognitiva', '(31)993344557', 2),
-    ('psicologo3@facul.com', 'matriculaps3', 'password3', 'Mariana Lima', 'Psicologia, 5º período', 'Psicologia clínica', '(31)993344558', 2),
-    ('psicologo4@facul.com', 'matriculaps4', 'password4', 'Guilherme Santos', 'Psicologia, 6º período', 'Psicologia do desenvolvimento', '(31)993344559', 2),
-    ('psicologo5@facul.com', 'matriculaps5', 'password5', 'Aline Costa', 'Psicologia, 7º período', 'Psicologia social', '(31)993344560', 2),
-    ('psicologo6@facul.com', 'matriculaps6', 'password6', 'Tiago Alves', 'Psicologia, 8º período', 'Psicologia forense', '(31)993344561', 2),
-    ('psicologo7@facul.com', 'matriculaps7', 'password7', 'Larissa Pereira', 'Psicologia, 2º período', 'Psicologia da saúde', '(31)993344562', 2),
-    ('psicologo8@facul.com', 'matriculaps8', 'password8', 'Paulo Ribeiro', 'Psicologia, 3º período', 'Psicologia da educação', '(31)993344563', 2),
-    ('psicologo9@facul.com', 'matriculaps9', 'password9', 'Bruna Rocha', 'Psicologia, 1º período', 'Psicologia organizacional', '(31)993344564', 2),
-    ('psicologo10@facul.com', 'matriculaps10', 'password10', 'Rafaela Soares', 'Psicologia, 4º período', 'Psicologia esportiva', '(31)993344565', 2),
-    ('psicologo11@facul.com', 'matriculaps11', 'password11', 'Leonardo Machado', 'Psicologia, 5º período', 'Psicologia comportamental', '(31)993344566', 2),
-    ('psicologo12@facul.com', 'matriculaps12', 'password12', 'Roberta Castro', 'Psicologia, 6º período', 'Psicologia educacional', '(31)993344567', 2),
-    ('psicologo13@facul.com', 'matriculaps13', 'password13', 'João Oliveira', 'Psicologia, 7º período', 'Psicologia humanista', '(31)993344568', 2),
-    ('psicologo14@facul.com', 'matriculaps14', 'password14', 'Camila Dias', 'Psicologia, 8º período', 'Psicologia evolutiva', '(31)993344569', 2),
-    ('psicologo15@facul.com', 'matriculaps15', 'password15', 'Mateus Pereira', 'Psicologia, 2º período', 'Psicologia transpessoal', '(31)993344570', 2);
+    ('João Silva', 'joao.silva@example.com', '123456789', 'M', 'Psicologia Clínica', 'Sou formado em Psicologia Clínica e tenho experiência em terapia individual.'),
+    ('Maria Santos', 'maria.santos@example.com', '987654321', 'F', 'Psicologia Infantil', 'Trabalho principalmente com crianças e adolescentes, utilizando técnicas lúdicas e terapia familiar.'),
+    ('Pedro Almeida', 'pedro.almeida@example.com', '456789123', 'M', 'Psicologia Organizacional', 'Especializado em desenvolvimento de equipes e gestão de recursos humanos.'),
+    ('Ana Oliveira', 'ana.oliveira@example.com', '321654987', 'F', 'Psicologia Esportiva', 'Ajudo atletas a lidar com questões emocionais e melhorar seu desempenho nas competições.'),
+    ('Lucas Barbosa', 'lucas.barbosa@example.com', '987123654', 'M', 'Psicologia Social', 'Pesquiso e atuo na área de psicologia comunitária e intervenções sociais.'),
+    ('Juliana Costa', 'juliana.costa@example.com', '654321987', 'F', 'Psicologia Educacional', 'Trabalho com alunos e professores, ajudando no desenvolvimento acadêmico e emocional.'),
+    ('Rafaela Ferreira', 'rafaela.ferreira@example.com', '456123789', 'F', 'Psicologia do Desenvolvimento', 'Especializada em acompanhamento psicológico de crianças em diferentes fases do desenvolvimento.'),
+    ('Fernando Carvalho', 'fernando.carvalho@example.com', '987321456', 'M', 'Psicologia Hospitalar', 'Trabalho com pacientes hospitalizados, auxiliando no enfrentamento das dificuldades emocionais.'),
+    ('Isabela Santos', 'isabela.santos@example.com', '789123456', 'F', 'Psicologia Clínica', 'Atuo com adultos e idosos, oferecendo suporte emocional e orientação terapêutica.'),
+    ('Gustavo Rodrigues', 'gustavo.rodrigues@example.com', '321987654', 'M', 'Psicologia Forense', 'Realizo avaliações psicológicas em contextos jurídicos e ofereço apoio a vítimas de crimes.'),
+    ('Carolina Lima', 'carolina.lima@example.com', '654789123', 'F', 'Psicologia Organizacional', 'Auxilio empresas a desenvolver um ambiente de trabalho saudável e produtivo.'),
+    ('André Torres', 'andre.torres@example.com', '789654123', 'M', 'Psicologia Escolar', 'Atuo com alunos, pais e professores, promovendo a saúde mental e o bem-estar nas instituições de ensino.'),
+    ('Mariana Costa', 'mariana.costa@example.com', '321789654', 'F', 'Psicologia do Esporte', 'Apoio atletas de alto rendimento a lidar com a pressão e os desafios psicológicos do esporte.'),
+    ('Rodrigo Ferreira', 'rodrigo.ferreira@example.com', '654123789', 'M', 'Psicologia Social', 'Realizo pesquisas e intervenções comunitárias, visando promover mudanças sociais positivas.'),
+    ('Camila Alves', 'camila.alves@example.com', '789456123', 'F', 'Psicologia Hospitalar', 'Trabalho em hospitais, ajudando pacientes e familiares a lidar com a doença e o processo de tratamento.');
